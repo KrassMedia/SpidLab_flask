@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Профиль
+{% endblock %}
+
+{% block body %}
+    <h1 class="pb-3">Профиль</h1>
+    <div class="p-5 bg-primary bg-opacity-25 rounded">
+        <h2>{{ current_user.user_login }}</h2><br>
+        <p>Дата регистрации: {{ current_user.user_date_create }}</p>
+        <p>Уровень доступа: {{ current_user.user_admin }}</p>
+    </div>
+{% endblock %}

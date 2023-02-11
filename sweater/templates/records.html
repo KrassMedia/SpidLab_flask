@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Реестр записей
+{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between">
+        <h1>Просмотр реестра записей</h1>
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#demo"> Фильтр </button>
+    </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <br>
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li class="alert alert-warning">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+{#    Панель филтра #}
+    <div id="demo" {% if filter %} class="collapse show" {% else %} class="collapse" {% endif %}><br>
+        <form class="p-3 bg-primary bg-opacity-25 rounded" method="POST"><br>
+            <div class='row'>
+                <div class='col'>
+                    <label for="surname">Фамилия пациента</label>
+                    <input type="text"
+                            name="surname"
+                            id="surname"
+                            {% if auto_past['surname'] %} value='{{ auto_past['surname'] }}' {% endif %}
+                            {% if 'surname' in filter %} class="form-control border border-primary" {% else %} class="form-control" {% endif %}
+                            placeholder="Фамилия"><br>
+                </div>
+                <div class='col'>
+                    <label for="name">Имя пациента</label>
+                    <input type="text"
+                            name="name"
+                            id="name"
+                            {% if auto_past['name'] %} value='{{ auto_past['name'] }}' {% endif %}
+                            {% if 'name' in filter %} class="form-control border border-primary" {% else %} class="form-control" {% endif %}
+                            placeholder="Имя"><br>
+                </div>
+                <div class='col'>
+                    <label for="patronymic">Отчество пациента</label>
+                    <input type="text"
+                            name="patronymic"
+                            id="patronymic"
+                            {% if auto_past['patronymic'] %} value='{{ auto_past['patronymic'] }}' {% endif %}
+                            {% if 'patronymic' in filter %} class="form-control border border-primary" {% else %} class="form-control" {% endif %}
+                            placeholder="Отчество"><br>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col'>
+                    <label for="date_birth">Дата рождения</label>
+                    <input type="date"
+                            name="date_birth"
+                            id="date_birth"
+                            {% if auto_past['date_birth'] %} value={{ auto_past['date_birth'] }} {% endif %}
+                            {% if 'date_birth' in filter %} class="form-control border border-primary" {% else %} class="form-control" {% endif %}><br>
+                </div>
+                <div class='col'>
+                    <label for="date_analysis">Дата исследования</label>
+                    <input type="date"
+                            name="date_analysis"
+                            id="date_analysis"
+                            {% if auto_past['date_analysis'] %} value={{ auto_past['date_analysis'] }} {% endif %}
+                            {% if 'date_analysis' in filter %} class="form-control border border-primary" {% else %} class="form-control" {% endif %}><br>
+                </div>
+                <div class='col'>
+                    <label for="referred_doctor">Направлен врачом</label>
+                    <input type="text"
+                            name="referred_doctor"
+                            id="referred_doctor"
+                            {% if auto_past['referred_doctor'] %} value='{{ auto_past['referred_doctor'] }}' {% endif %}
+                            {% if 'referred_doctor' in filter %} class="form-control border border-primary" {% else %} class="form-control" {% endif %}
+                            placeholder="Врач"><br>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col'>
+                    <label for="analysis_name">Наименованние исследования</label>
+                    <select name="analysis_name"
+                            id="analysis_name"
+                            {% if 'analysis_name' in filter %} class="form-select border border-primary" {% else %} class="form-select" {% endif %}>
+                        <option selected>{% if auto_past['analysis_name'] %} {{ auto_past['analysis_name'] }} {% else %} Выберите исследование {% endif %}</option>
+                        {% for name in analysis_name_list %}
+                            <option value="{{ name.analysis_id }}">{{ name.analysis_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class='col'>
+                    <label for="analysis_result">Результат исследования</label>
+                    <input type="text"
+                            name="analysis_result"
+                            id="analysis_result"
+                            {% if auto_past['analysis_result'] %} value='{{ auto_past['analysis_result'] }}' {% endif %}
+                            {% if 'analysis_result' in filter %} class="form-control border border-primary" {% else %} class="form-control" {% endif %}
+                            placeholder="Поиск по реультату исследования"><br>
+                </div>
+                <div class='col'>
+                    <label for="sort_method">Метод сортировки</label>
+                    <select name="sort_method"
+                            id="sort_method"
+                            {% if 'sort_method' in filter %} class="form-select border border-primary" {% else %} class="form-select" {% endif %}>
+                        <option selected>{% if auto_past['sort_method'] %} {{ auto_past['sort_method'] }} {% else %} Отсортировать по... {% endif %}</option>
+                        {% for sort_method in sort_method_list %}
+                            <option value="{{ loop.index - 1 }}">{{ sort_method }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <input type="submit" id=2 name="submit_button" class="btn btn-outline-primary" value="Отчистить фильтр">
+                <input type="submit" id=1 name="submit_button" class="btn btn-primary" value="Применить">
+            </div>
+        </form>
+    </div>
+{#    Основная таблица #}
+    <br>
+    <div class="p-3 bg-primary bg-opacity-25 rounded">
+        <table class="table table-light table-striped border border-primary">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">ФИО</th>
+                    <th scope="col">Дата рождения</th>
+                    <th scope="col">Исследование</th>
+                    <th scope="col">Результат</th>
+                    <th scope="col">Направивший врач</th>
+                    <th scope="col">Изменить</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in main_data.items %}
+                    <tr>
+                        <th scope="row">{{ loop.index + ((main_data.page - 1) * main_data.per_page) }}</th>
+                        <td>{{ data.date_analysis.strftime('%d.%m.%Y') }}</td>
+                        <td>{{ data.patient_surname.title() }} {{ data.patient_name[0] }}.{{ data.patient_patronymic[0] }}.</td>
+                        <td>{% if data.patient_date_birth %}{{ data.patient_date_birth.strftime('%d.%m.%Y') }}{% endif %}</td>
+                        <td>{{ data.analysis_name }}</td>
+                        <td>{{ data.analysis_result }}</td>
+                        <td>{{ data.doctor_name }}</td>
+                        <td><a href="/record/{{ data.id }}/update" class="btn btn-outline-primary">Изменить</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-center">
+        {% if main_data.has_prev %}<a href="{{ url_for('records', page=main_data.prev_num) }}" class="btn btn-outline-primary"> << </a>{% else %}<button type="button" class="btn btn-outline-secondary" disabled> << </button>{% endif %}
+        <div class="p-2"> Страница {{ main_data.page }} из {{ main_data.pages }} </div>
+        {% if main_data.has_next %}<a href="{{ url_for('records', page=main_data.next_num) }}" class="btn btn-outline-primary"> >> </a>{% else %}<button type="button" class="btn btn-outline-secondary" disabled> >> </button>{% endif %}
+    </div>
+{% endblock %}

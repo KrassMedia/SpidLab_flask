@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Добавление записи
+{% endblock %}
+
+{% block body %}
+    <h1 class="pb-3">Новая запись</h1>
+{#    Сообщение об успешности или ошибке процесса#}
+    {% if 'success' in error %}
+        <div class="alert alert-success">
+            <strong>Готово!</strong> Новые данные успешно внесены в реестр!
+        </div>
+    {% elif error %}
+        <div class="alert alert-danger">
+            <strong>Ошибка!</strong> Проверьте правильность заполнения полей!
+        </div>
+    {% endif %}
+    <form method="POST" class="p-3 bg-primary bg-opacity-25 rounded"><br>
+        <div class='row'>
+            <div class='col'>
+                <label for="fio">ФИО пациента</label>
+                <input type="text"
+                        name="fio"
+                        id="fio"
+                        {% if auto_past['fio'] %} value='{{ auto_past['fio'] }}' {% endif %}
+                        {% if 'fio' in error %} class="form-control bg-danger" {% else %} class="form-control" {% endif %}
+                        placeholder="ФИО"
+                        required ><br>
+            </div>
+            <div class='col'>
+                <label for="date_birth">Дата рождения</label>
+                <input type="date"
+                        name="date_birth"
+                        id="date_birth"
+                        {% if auto_past['date_birth'] %} value={{ auto_past['date_birth'] }} {% endif %}
+                        class="form-control"><br>
+            </div>
+            <div class='col'>
+                <label for="date_analysis">Дата исследования</label>
+                <input type="date"
+                        name="date_analysis"
+                        id="date_analysis"
+                        {% if auto_past['date_analysis'] %} value={{ auto_past['date_analysis'] }} {% endif %}
+                        class="form-control"
+                        required><br>
+            </div>
+            <div class='col'>
+                <label for="referred_doctor">Направлен врачом</label>
+                <input type="text"
+                        name="referred_doctor"
+                        id="referred_doctor"
+                        {% if auto_past['referred_doctor'] %} value='{{ auto_past['referred_doctor'] }}' {% endif %}
+                        class="form-control"
+                        placeholder="Врач"
+                        required><br>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col'>
+                <label for="analysis_name">Наименованние исследования</label>
+                <select name="analysis_name"
+                        id="analysis_name"
+                        {% if 'analysis_name' in error %} class="form-select bg-danger" {% else %} class="form-select" {% endif %}>
+                    <option selected>{% if auto_past['analysis_name'] %} {{ auto_past['analysis_name'] }} {% else %} Выберите исследование {% endif %}</option>
+                    {% for name in analysis_name_list %}
+                        <option value="{{ name.analysis_id }}">{{ name.analysis_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class='col'>
+                <label for="analysis_result">Результат исследования</label>
+                <input type="text"
+                        name="analysis_result"
+                        id="analysis_result"
+                        {% if auto_past['analysis_result'] %} value='{{ auto_past['analysis_result'] }}' {% endif %}
+                        {% if 'analysis_result' in error %} class="form-control bg-danger" {% else %} class="form-control" {% endif %}
+                        placeholder="Введите Результат"
+                        required><br>
+            </div>
+        </div>
+
+        {# Add blocks #}
+        <div id="demo"
+                {% if 'analysis_result1' in error or
+                 'analysis_result2' in error or
+                  'analysis_result3' in error or
+                   'analysis_name1' in error or
+                    'analysis_name2' in error or
+                     'analysis_name3' in error%} class="collapse show" {% else %} class="collapse" {% endif %}><br>
+            <div class='row'>
+                <div class='col'>
+                    <label for="analysis_name1">Наименованние исследования</label>
+                    <select name="analysis_name1"
+                            id="analysis_name1"
+                            {% if 'analysis_name1' in error %} class="form-select bg-danger" {% else %} class="form-select" {% endif %}>
+                        <option selected>{% if auto_past['analysis_name1'] %} {{ auto_past['analysis_name1'] }} {% else %} Выберите исследование {% endif %}</option>
+                        {% for name in analysis_name_list %}
+                            <option value="{{ name.analysis_id }}">{{ name.analysis_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class='col'>
+                    <label for="analysis_result1">Результат исследования</label>
+                    <input type="text"
+                            name="analysis_result1"
+                            id="analysis_result1"
+                            {% if auto_past['analysis_result1'] %} value='{{ auto_past['analysis_result1'] }}' {% endif %}
+                            {% if 'analysis_result1' in error %} class="form-control bg-danger" {% else %} class="form-control" {% endif %}
+                            placeholder="Введите Результат"><br>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col'>
+                    <label for="analysis_name2">Наименованние исследования</label>
+                    <select name="analysis_name2"
+                            id="analysis_name2"
+                            {% if 'analysis_name2' in error %} class="form-select bg-danger" {% else %} class="form-select" {% endif %}>
+                        <option selected>{% if auto_past['analysis_name2'] %} {{ auto_past['analysis_name2'] }} {% else %} Выберите исследование {% endif %}</option>
+                        {% for name in analysis_name_list %}
+                            <option value="{{ name.analysis_id }}">{{ name.analysis_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class='col'>
+                    <label for="analysis_result2">Результат исследования</label>
+                    <input type="text"
+                            name="analysis_result2"
+                            id="analysis_result2"
+                            {% if auto_past['analysis_result2'] %} value='{{ auto_past['analysis_result2'] }}' {% endif %}
+                            {% if 'analysis_result2' in error %} class="form-control bg-danger" {% else %} class="form-control" {% endif %}
+                            placeholder="Введите Результат"><br>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col'>
+                    <label for="analysis_name3">Наименованние исследования</label>
+                    <select name="analysis_name3"
+                            id="analysis_name3"
+                            {% if 'analysis_name3' in error %} class="form-select bg-danger" {% else %} class="form-select" {% endif %}>
+                        <option selected>{% if auto_past['analysis_name3'] %} {{ auto_past['analysis_name3'] }} {% else %} Выберите исследование {% endif %}</option>
+                        {% for name in analysis_name_list %}
+                            <option value="{{ name.analysis_id }}">{{ name.analysis_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class='col'>
+                    <label for="analysis_result3">Результат исследования</label>
+                    <input type="text"
+                            name="analysis_result3"
+                            id="analysis_result3"
+                            {% if auto_past['analysis_result3'] %} value='{{ auto_past['analysis_result3'] }}' {% endif %}
+                            {% if 'analysis_result3' in error %} class="form-control bg-danger" {% else %} class="form-control" {% endif %}
+                            placeholder="Введите Результат"><br>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#demo"> + </button>
+            <a href='/create-record' class="btn btn-outline-primary">Отчистить форму</a>
+            <input type="submit" name="submit_button" class="btn btn-primary" value="Отправить">
+        </div>
+
+    </form>
+{% endblock %}

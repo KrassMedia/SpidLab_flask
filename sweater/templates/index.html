@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block body %}
+    <h1 class="pb-3">Реестр лабораторных анализов</h1>
+    <div class="p-5 bg-primary bg-opacity-25 rounded">
+{#        <h2>Краткая инструкция:</h2><br>#}
+{#        <p>Для добавления новой записи в журнал намите кнопку "Добавить запись".</p>#}
+{#        <p>Далее необходимо заполнить следующие поля: ФИО пациента, Дата рождения, Дата исследования, Направлен врачом.</p>#}
+{#        <p>За тем выберите из выпадающего списка Наименование исследования и укажите его результат в поле Результат исследования.</p>#}
+{#        <p>При необходимости добавить поля с дополнительными исследованиями нажмите кнопку " + ".</p>#}
+{#        <p>Что бы завершить операцию нажмите кнопку "Отправить".</p>#}
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Добро пожаловать!
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <strong>Реестр лабораторных анализов</strong> - это WEB-приложение, разработанное отделом АСУП
+                        ГБУЗ "Межрайонной больницы №1" для удобства учёта и хранения результатов анализов СПИД Лаборатории.
+                        Ниже приведена краткая инструкция по работе с нашим сервисом, если Вы не нашли ответ на свой вопрос
+                        обращайтесь в отдел АСУП.<br> <strong>Приятной работы!</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Как войти в систему?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Для работы с нашим сервисом Вам потребуется пройти <strong>Авторизацию</strong>, простыми словами
+                        - войти в систему. Для этого в правом верхнем углу следует нажать кнопку <code>Авторизация</code>
+                        и ввести Ваши учётные данный в соответствующие поля. После нажмите кнопку <code>Войти</code>.
+                        Если у Вас ещё нет аккаунта в нашем сервисе, то его необходимо создать, нажав на кнопку <code>Регистрация</code>
+                        на этой же странице. Далее Вам потребуется придумать и ввести логин и пароль, а за тем нажать кнопку <code>Создать аккаунт</code>.
+                        После создания аккаунта Вам откроется страница входа в систему, как войти в сервис Вы уже знаете. Для выхода из системы
+                        используйте кнопку в правом верхнем углу с именем Вашего аккаунта, в открывшемся меню нажмите <code>Выйти</code>.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Как внести результаты анализов?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Для того что бы <strong>внести результаты анализов</strong> на верхней панели требуется нажать кнопку <code>Внести запись</code>.
+                        После чего для Вас откроется форма добавления новой записи, где следует заполнить соответствующие поля и нажать кнопку <code>Отправить</code>
+                        Дату рождения пациента указывать необязательно. Если Вам требуется внести несколько результатов анализов - нажмите кнопку
+                        <code>+</code> для раскрытия дополнительных полей. Что бы отчистить все поля формы, нажмите кнопку <code>Отчистить форму</code>.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                        Как просмотреть внесенные записи?
+                    </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Для того что бы <strong>увидеть все результаты анализов</strong> на верхней панели требуется нажать кнопку <code>Реестр записей</code>.
+                        После чего для Вас откроется таблица, которая будет содержать все внесенные результаты анализов. Кнопка <code>Фильтр</code>, в верхней
+                        правой части экрана, развернёт панель, с помощью которой Вы легко сможете отфильтровать и нужным образом упорядочить записи в таблице.
+                        Для применения выбранных настроек фильтра нажмите кнопку <code>Применить</code>, для сброса настроек фильра - кнопку <code>Отчистить фильтр</code>.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading5">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                        Как редактировать записи?
+                    </button>
+                </h2>
+                <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Для того что бы <strong>редактировать записи</strong> Вам следует зайти в <code>Реестр записей</code> и нажать кнопку <code>Изменить</code>
+                        на против интересующей Вас позиции. После этого откроется окно, где вы легко сможете внести требуемые изминения. Для подтверждения внесенных
+                        изменений используйте кнопку <code>Внести изменения</code>. Что бы заполнить поля формы исходными данными нажмите кнопку <code>Вернуть данные формы</code>.
+                        Для удаления записи используйте кнопку <code>Удалить</code>.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading6">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                        Как удалить запись?
+                    </button>
+                </h2>
+                <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Для того что бы <strong>удалить запись</strong> Вам следует зайти в <code>Реестр записей</code> и нажать кнопку <code>Изменить</code>
+                        на против нужной Вам позиции. После этого откроется окно, где вы легко сможете удалить требуемую запись. Для этого используйте кнопку
+                        <code>Удалить</code>.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading7">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                        У вас недостаточно прав для совершения данной операции. Что делать?
+                    </button>
+                </h2>
+                <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Вновь созданные аккаунты имеют возможность только просматривать результаты анализов в реестре записей. В ответ на остальные действия
+                        такие аккаунты будут получать сообщение <strong>У вас недостаточно прав для совершения данной операции</strong>. Что бы получить возможность
+                        добавлять, редактировать и удалять записи Вам нужно обратиться в отдел АСУП.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<div class="container py-3">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <div class="d-flex justify-content-between pb-3 mb-4 border-bottom">
+        <a href="/home" class="d-flex align-items-center text-dark text-decoration-none">
+{#            <img src="static\table.svg" class="p-2 fs-4 rounded float-start" alt="...">#}
+            <span class="fs-4">SpidLabReg</span>
+        </a>
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <a class="btn btn-outline-primary" href="/home">Главная</a>
+
+            {% if current_user.is_authenticated %}
+                <a class="btn btn-outline-primary" href="/records">Реестр записей</a>
+                <a class="btn btn-outline-primary" href="/create-record">Внести запись</a>
+
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ current_user.user_login }}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ url_for('profile') }}">Профиль</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('logout') }}">Выйти</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <a class="btn btn-outline-success" href="/login">Авторизация</a>
+            {% endif %}
+        </div>
+    </div>
+    {% block body %}{% endblock %}
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-12 col-md">
+            <small class="d-block mb-3 text-muted">SpidLabReg© 2022</small>
+            <small class="d-block mb-3 text-muted">8 (953) 533-72-58</small>
+            <small class="d-block mb-3 text-muted">gbuz.asup@mail.ru</small>
+          </div>
+{#          <div class="col-6 col-md">#}
+{#            <h5>Навигация</h5>#}
+{#            <ul class="list-unstyled text-small">#}
+{#              <li class="mb-1"><a class="link-secondary text-decoration-none" href="/home">Главная</a></li>#}
+{#              <li class="mb-1"><a class="link-secondary text-decoration-none" href="/regcontract">Реестр контрактов</a></li>#}
+{#              <li class="mb-1"><a class="link-secondary text-decoration-none" href="/create-article">Добавить контракт</a></li>#}
+{#            </ul>#}
+{#          </div>#}
+{#          <div class="col-6 col-md">#}
+{#            <h5>Приложения</h5>#}
+{#            <ul class="list-unstyled text-small">#}
+{#              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Приложение 1</a></li>#}
+{#              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Приложение 2</a></li>#}
+{#              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Приложение 3</a></li>#}
+{#              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Приложение 4</a></li>#}
+{#            </ul>#}
+{#          </div>#}
+{#          <div class="col-6 col-md">#}
+{#            <h5>Прочие ссылки</h5>#}
+{#            <ul class="list-unstyled text-small">#}
+{#              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">ссылка</a></li>#}
+{#              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">ссылка</a></li>#}
+{#              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">ссылка</a></li>#}
+{#              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">ссылка</a></li>#}
+{#            </ul>#}
+{#          </div>#}
+        </div>
+    </footer>
+</div>
+</body>
+</html>
